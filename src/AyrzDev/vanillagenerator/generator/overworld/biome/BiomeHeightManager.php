@@ -1,17 +1,43 @@
 <?php
 
+/*
+ *    $$$$$$$\                      $$\   $$\               $$\      $$\ $$\                     
+ *    $$  __$$\                     $$ |  $$ |              $$$\    $$$ |\__|                         
+ *    $$ |  $$ | $$$$$$\   $$$$$$\  $$ |$$$$$$\   $$\   $$\ $$$$\  $$$$ |$$\ $$$$$$$\   $$$$$$\        
+ *    $$$$$$$\ |$$  __$$\ $$  __$$\ $$ |\_$$  _|  $$ |  $$ |$$\$$\$$ $$ |$$ |$$  __$$\ $$  __$$\ 
+ *    $$  __$$\ $$$$$$$$ |$$$$$$$$ |$$ |  $$ |    $$ |  $$ |$$ \$$$  $$ |$$ |$$ |  $$ |$$$$$$$$ |
+ *    $$ |  $$ |$$   ____|$$   ____|$$ |  $$ |$$\ $$ |  $$ |$$ |\$  /$$ |$$ |$$ |  $$ |$$   ____|        
+ *    $$$$$$$  |\$$$$$$$\ \$$$$$$$\ $$ |  \$$$$  |\$$$$$$$ |$$ | \_/ $$ |$$ |$$ |  $$ |\$$$$$$$\       
+ *    \_______/  \_______| \_______|\__|   \____/  \____$$ |\__|     \__|\__|\__|  \__| \_______|     
+ *                                                $$\   $$ |                                                                    
+ *                                                \$$$$$$  |                                                                    
+ *                                                 \______/           
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * @author AyrzDev
+ * @project BeeltyMine VanillaGenerator
+ * @link https://dephts.com
+ * 
+ *                                   
+ */
+
 declare(strict_types=1);
 
 namespace AyrzDev\vanillagenerator\generator\overworld\biome;
 
-final class BiomeHeightManager{
+final class BiomeHeightManager
+{
 
 	private static BiomeHeight $default;
 
 	/** @var BiomeHeight[] */
 	private static array $heights = [];
 
-	public static function init() : void{
+	public static function init(): void
+	{
 		self::$default = new BiomeHeight(0.1, 0.2);
 
 		self::register(new BiomeHeight(-1.0, 0.1), BiomeIds::OCEAN, BiomeIds::FROZEN_OCEAN);
@@ -21,7 +47,8 @@ final class BiomeHeightManager{
 		self::register(new BiomeHeight(0.1, 0.8), BiomeIds::STONE_BEACH);
 		self::register(new BiomeHeight(0.125, 0.05), BiomeIds::DESERT, BiomeIds::ICE_PLAINS, BiomeIds::SAVANNA);
 
-		self::register(new BiomeHeight(1.0, 0.5),
+		self::register(
+			new BiomeHeight(1.0, 0.5),
 			BiomeIds::EXTREME_HILLS,
 			BiomeIds::EXTREME_HILLS_PLUS_TREES,
 			BiomeIds::EXTREME_HILLS_MUTATED,
@@ -32,7 +59,8 @@ final class BiomeHeightManager{
 		self::register(new BiomeHeight(-0.2, 0.1), BiomeIds::SWAMPLAND);
 		self::register(new BiomeHeight(0.2, 0.3), BiomeIds::MUSHROOM_ISLAND);
 
-		self::register(new BiomeHeight(0.45, 0.3),
+		self::register(
+			new BiomeHeight(0.45, 0.3),
 			BiomeIds::ICE_MOUNTAINS,
 			BiomeIds::DESERT_HILLS,
 			BiomeIds::FOREST_HILLS,
@@ -58,13 +86,15 @@ final class BiomeHeightManager{
 		self::register(new BiomeHeight(1.1, 1.3125), BiomeIds::SAVANNA_PLATEAU_MUTATED);
 	}
 
-	public static function register(BiomeHeight $height, int ...$biomes) : void{
-		foreach($biomes as $biome){
+	public static function register(BiomeHeight $height, int ...$biomes): void
+	{
+		foreach ($biomes as $biome) {
 			self::$heights[$biome] = $height;
 		}
 	}
 
-	public static function get(int $biome) : BiomeHeight{
+	public static function get(int $biome): BiomeHeight
+	{
 		return self::$heights[$biome] ?? self::$default;
 	}
 }

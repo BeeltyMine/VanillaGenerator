@@ -3,7 +3,4 @@ main: AyrzDev\vanillagenerator\Loader
 api: 5.8.0
 version: 0.0.4
 author: AyrzDev
-github: https://github.com/AyrzDev
-twitter: https://twitter.com/AyrzDevrayyan
-forum: https://forums.pmmp.io/members/AyrzDev.25/
-hotel: trivago
+description: A simple world generator plugin that generates vanilla-like worlds.
