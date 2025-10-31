@@ -195,6 +195,10 @@ class VanillaGeneratorCommand extends Command implements PluginOwned
             case "end":
                 $gen = \AyrzDev\vanillagenerator\generator\end\EndGeneratorV2::class;
                 break;
+            case "test":
+                $gen = \AyrzDev\vanillagenerator\generator\test\StoneWaterTestGenerator::class;
+                break;
+
             default:
                 $sender->sendMessage(TextFormat::RED . "Unknown generator type: $type");
                 return false;

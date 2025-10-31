@@ -39,7 +39,7 @@ class NoiseMapLayer extends MapLayer
 	public function __construct(int $seed)
 	{
 		parent::__construct($seed);
-		$this->noise_gen = new SimplexOctaveGenerator(new Random($seed), 2);
+		$this->noise_gen = new SimplexOctaveGenerator(new Random($seed), 3);
 	}
 
 	public function generateValues(int $x, int $z, int $size_x, int $size_z): array
@@ -47,13 +47,13 @@ class NoiseMapLayer extends MapLayer
 		$values = [];
 		for ($i = 0; $i < $size_z; ++$i) {
 			for ($j = 0; $j < $size_x; ++$j) {
-				$noise = $this->noise_gen->octaveNoise($x + $j, $z + $i, 0, 0.175, 0.8, true) * 4.0;
+				$noise = $this->noise_gen->octaveNoise($x + $j, $z + $i, 0, 0.2, 0.75, true) * 3.5;
 				$val = 0;
-				if ($noise >= 0.05) {
-					$val = $noise <= 0.2 ? 3 : 2;
+				if($noise >= -0.1){
+					$val = $noise <= 0.15 ? 3 : 2;
 				} else {
 					$this->setCoordsSeed($x + $j, $z + $i);
-					$val = $this->nextInt(2) === 0 ? 3 : 0;
+					$val = $this->nextInt(10) < 3 ? 0 : 3;
 				}
 				$values[$j + $i * $size_x] = $val;
 				//$values[$j + $i * $size_x] =

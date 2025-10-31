@@ -12,6 +12,8 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\world\generator\GeneratorManager;
 use AyrzDev\vanillagenerator\task\SpawnCrystalTask;
+use AyrzDev\vanillagenerator\generator\test\StoneWaterTestGenerator;
+
 
 final class Loader extends PluginBase
 {
@@ -22,7 +24,8 @@ final class Loader extends PluginBase
 	/**
 	 * Add a queued EndCrystal spawn position. Stored as [worldName, x, y, z, showBase]
 	 */
-	public function queueCrystal(string $worldName, int $x, int $y, int $z, bool $showBase = false) : void{
+	public function queueCrystal(string $worldName, int $x, int $y, int $z, bool $showBase = false): void
+	{
 		$this->crystalQueue[] = [$worldName, $x, $y, $z, $showBase];
 	}
 
@@ -30,7 +33,8 @@ final class Loader extends PluginBase
 	 * Consume and return the queued crystal positions (drains the queue)
 	 * @return array<int, array{string,int,int,int,bool}>
 	 */
-	public function drainCrystalQueue() : array{
+	public function drainCrystalQueue(): array
+	{
 		$items = $this->crystalQueue;
 		$this->crystalQueue = [];
 		return $items;
@@ -43,10 +47,13 @@ final class Loader extends PluginBase
 		Server::getInstance()->getCommandMap()->register("vg", new VanillaGeneratorCommand($this));
 		$generator_manager->addGenerator(NetherGenerator::class, "vanilla_nether", fn() => null);
 		$generator_manager->addGenerator(OverworldGenerator::class, "vanilla_overworld", fn() => null);
-	$generator_manager->addGenerator(EndGeneratorV2::class, "vanilla_end", fn() => null);
+		$generator_manager->addGenerator(EndGeneratorV2::class, "vanilla_end", fn() => null);
+	// register available test generator (StoneWaterTestGenerator)
+	$generator_manager->addGenerator(StoneWaterTestGenerator::class, "test", fn() => null);
 	}
 
-	public function onEnable() : void{
+	public function onEnable(): void
+	{
 		// schedule a repeating task to process queued EndCrystal spawns on the main thread
 		$this->getScheduler()->scheduleRepeatingTask(new SpawnCrystalTask($this), 20);
 	}
