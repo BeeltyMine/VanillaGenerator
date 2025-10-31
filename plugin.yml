@@ -3,4 +3,9 @@ main: AyrzDev\vanillagenerator\Loader
 api: 5.8.0
 version: 0.0.4
 author: AyrzDev
-description: A simple world generator plugin that generates vanilla-like worlds.
+description: "A simple world generator plugin that generates vanilla-like worlds."
+
+permissions:
+  vanillagenerator.command.vg:
+    description: "Allows the use of the /vg command"
+    default: op
